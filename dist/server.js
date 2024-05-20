@@ -14,14 +14,19 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const mongoose_1 = __importDefault(require("mongoose"));
 const app_1 = __importDefault(require("./app"));
+const config_1 = __importDefault(require("./config"));
 function main() {
     return __awaiter(this, void 0, void 0, function* () {
-        yield mongoose_1.default.connect("mongodb+srv://admin-coder:MA222111@cluster0.rljvsnd.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0");
-        main();
+        try {
+            yield mongoose_1.default.connect(config_1.default.db_url);
+            app_1.default.listen(config_1.default.port, () => {
+                console.log(`online-commerce-server is listening on port ${config_1.default.port}`);
+            });
+        }
+        catch (err) {
+            console.log(err);
+        }
     });
 }
-const port = 3000;
-app_1.default.listen(port, () => {
-    console.log(`Online-Commerce app listening on port ${port}`);
-});
+main();
 exports.default = app_1.default;

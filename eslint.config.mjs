@@ -18,5 +18,6 @@ export default tseslint.config(
             "prefer-const": "error",
             "no-console": "warn",
         },
-    }
+    },
+    { "extends": ["eslint:recommended", "plugin:@typescript-eslint/recommended", "prettier"] }
 );

@@ -5,5 +5,9 @@ const createProduct = async (payload: Product) => {
   const result = await ProductModel.create(payload)
   return result
 }
+const getAllProducts = async () => {
+  const result = await ProductModel.find()
+  return result
+}
 
-export const ProductServices = { createProduct }
+export const ProductServices = { createProduct, getAllProducts }

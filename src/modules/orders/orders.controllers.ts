@@ -13,9 +13,15 @@ const createOrder = async (req: Request, res: Response) => {
       data: result,
     })
   } catch (err: any) {
+    if (err.name === 'ZodError') {
+      return res.status(500).json({
+        success: false,
+        message: err,
+      })
+    }
     res.status(500).json({
       success: false,
-      message: 'Something went Wrong',
+      message: err.message,
     })
   }
 }

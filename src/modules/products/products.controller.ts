@@ -1,7 +1,6 @@
 import { Request, Response } from 'express'
 import { ProductModel } from './products.model'
 import { ProductServices } from './products.service'
-import { z } from 'zod'
 import productValidationSchema from './products.validation'
 
 const createProduct = async (req: Request, res: Response) => {
@@ -52,8 +51,33 @@ const getSingleProduct = async (req: Request, res: Response) => {
   }
 }
 
+const updateProductById = async (req: Request, res: Response) => {
+  try {
+    const { productId } = req.params
+    const data = req.body
+    const updatedProduct = productValidationSchema.parse(data)
+
+    const result = await ProductServices.updateProduct(
+      productId,
+      updatedProduct,
+    )
+    res.json({
+      success: true,
+      message: 'Product updated successfully!',
+      data: result,
+    })
+  } catch (err) {
+    res.status(500).json({
+      success: false,
+      message: 'something went wrong',
+      data: err,
+    })
+  }
+}
+
 export const ProductControllers = {
   createProduct,
   getAllProducts,
   getSingleProduct,
+  updateProductById,
 }

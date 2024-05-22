@@ -12,4 +12,7 @@ router.get('/', ProductControllers.getAllProducts)
 //Retrieve single product by id
 router.get('/:productId', ProductControllers.getSingleProduct)
 
+//Update single product by id
+router.put('/:productId', ProductControllers.updateProductById)
+
 export const ProductRoutes = router

@@ -15,8 +15,23 @@ const getSingleProduct = async (_id: string) => {
   return result
 }
 
+const updateProduct = async (_id: string, updatedProduct: Product) => {
+  const result = await ProductModel.findByIdAndUpdate(
+    _id,
+    {
+      $set: {
+        ...updatedProduct,
+      },
+    },
+    { new: true },
+  )
+
+  return result
+}
+
 export const ProductServices = {
   createProduct,
   getAllProducts,
   getSingleProduct,
+  updateProduct,
 }
